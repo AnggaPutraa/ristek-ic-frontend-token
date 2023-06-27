@@ -5,6 +5,8 @@ part 'user_model.g.dart';
 
 @freezed
 class UserModel with _$UserModel {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory UserModel({
     required String email,
     required String fullName,

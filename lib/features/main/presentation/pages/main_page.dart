@@ -41,52 +41,112 @@ class _MainPageState extends State<MainPage> {
           child: state.isAuthenticated
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      Assets.firebase,
-                      width: 160,
-                      height: 160,
-                      colorFilter: const ColorFilter.mode(
-                        BaseColors.primary,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Currently Logged In as',
-                      style: TextStyle(
-                          color: BaseColors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      state.email,
-                      style: const TextStyle(
-                          color: BaseColors.primary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      state.fullName,
-                      style: const TextStyle(
-                          color: BaseColors.primary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Button(
-                          text: 'Sign Out',
-                          onTap: () {
-                            _cubit.signOut();
-                          },
-                        ),
-                      ],
-                    )
-                  ],
+                  children: state.postsModel != null
+                      ? [
+                          Expanded(
+                            flex: 8,
+                            child: ListView.builder(
+                              itemCount: state.postsModel?.posts.length ?? 0,
+                              itemBuilder: (context, index) => Container(
+                                padding: const EdgeInsets.all(16),
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: BaseColors.primary,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.postsModel!.posts[index].user.email,
+                                      style: const TextStyle(
+                                        color: BaseColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      state.postsModel!.posts[index].body,
+                                      style: const TextStyle(
+                                        color: BaseColors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Button(
+                                  text: 'Clear Post',
+                                  onTap: () {
+                                     _cubit.clearPosts();
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
+                        ]
+                      : [
+                          SvgPicture.asset(
+                            Assets.firebase,
+                            width: 160,
+                            height: 160,
+                            colorFilter: const ColorFilter.mode(
+                              BaseColors.primary,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          const Text(
+                            'Currently Logged In as',
+                            style: TextStyle(
+                                color: BaseColors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            state.email,
+                            style: const TextStyle(
+                                color: BaseColors.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            state.fullName,
+                            style: const TextStyle(
+                                color: BaseColors.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 24),
+                          ),
+                          const SizedBox(height: 24),
+                          Row(
+                            children: [
+                              Button(
+                                text: 'Sign Out',
+                                onTap: () {
+                                  _cubit.signOut();
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Button(
+                                text: 'Get Post',
+                                onTap: () {
+                                  _cubit.getPosts();
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                 )
               : const SizedBox(),
         ),

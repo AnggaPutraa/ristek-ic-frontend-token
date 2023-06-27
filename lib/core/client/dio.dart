@@ -15,7 +15,7 @@ Future<Response<dynamic>> getIt(
   Map<String, dynamic>? queryParameters,
 }) async {
   final getHeaders = headers ?? SharedPreferencesService.getHeaders();
-  final resp = await Dio().get<Map<String, dynamic>>(
+  final resp = await Dio().get(
     url,
     options: _options.copyWith(
       headers: getHeaders,

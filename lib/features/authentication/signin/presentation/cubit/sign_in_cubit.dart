@@ -32,9 +32,11 @@ class SignInCubit extends Cubit<SignInState> {
     
     try {
       final resp = await _repository.signIn(params);
+      final token = resp!.data.token;
+
       final user = UserModel.fromJson(
         JwtDecoder.decode(
-          resp!.data.token,
+          token
         ),
       );
 
