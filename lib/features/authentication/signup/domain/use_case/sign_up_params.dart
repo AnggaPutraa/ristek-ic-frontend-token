@@ -16,3 +16,4 @@ class SignUpParams with _$SignUpParams {
   factory SignUpParams.fromJson(Map<String, dynamic> json) =>
       _$SignUpParamsFromJson(json);
 }
+

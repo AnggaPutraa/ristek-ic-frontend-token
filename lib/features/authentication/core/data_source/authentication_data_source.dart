@@ -19,7 +19,6 @@ class AuthenticationDataSource {
       );
       return resp.parse(null);
     } catch (e) {
-      
       return null;
     }
   }
